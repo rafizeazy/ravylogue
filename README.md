@@ -1,4 +1,5 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+
+![ravylogue](https://github.com/user-attachments/assets/204612c8-4b6a-4303-b151-5b6d765cf9d5)
 
 Ravylogue - Personal Blog
 Ravylogue is an elegant and modern personal blog platform, built with Laravel. Designed with a calm and reflective feel, this application allows writers to share notes, experiences, and knowledge through a clean, content-focused interface.
