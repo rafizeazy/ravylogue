@@ -31,7 +31,7 @@ Follow the steps below to install and run this project in your local environment
 ### 1. Clone the Repository
 
 ```bash
-git clone [https://github.com/YOUR-USERNAME/personalblog.git](https://github.com/YOUR-USERNAME/personalblog.git)
+git clone [https://github.com/rafizeazy/ravylogue.git]
 cd personalblog
 ```
 
