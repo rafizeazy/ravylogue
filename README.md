@@ -83,13 +83,6 @@ php artisan serve
 
 Your application is now accessible at [**http://127.0.0.1:8000**](http://127.0.0.1:8000).
 
-## 👤 Blog Owner Access
-
-This system has a special role for the blog owner. By default, the user with the following email is designated as the owner:
-
--   **Email:** `rafiimanullah@gmail.com`
-
-The user with this email will be able to see the "New Post" button, as well as the icons to edit and delete all posts. Other users only have access to read and comment. This logic is controlled in `app/Policies/PostPolicy.php`.
 
 ---
 
