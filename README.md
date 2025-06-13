@@ -1,81 +1,96 @@
+# Ravylogue - Personal Blog
 
-![ravylogue](https://github.com/user-attachments/assets/204612c8-4b6a-4303-b151-5b6d765cf9d5)
+**Ravylogue** is an elegant and modern personal blog platform, built with Laravel. Designed with a calm and reflective feel, this application allows writers to share notes, experiences, and knowledge through a clean, content-focused interface.
 
-Ravylogue - Personal Blog
-Ravylogue is an elegant and modern personal blog platform, built with Laravel. Designed with a calm and reflective feel, this application allows writers to share notes, experiences, and knowledge through a clean, content-focused interface.
+![ravylogue2](https://github.com/user-attachments/assets/871b5a7a-b0a6-4866-998e-6ed7db5c8e52)
 
-✨ Key Features
-Elegant Design: A dark theme with a deep navy and cream white color palette, and classy typography using Playfair Display and Inter.
+---
 
-Post Management (CRUD): The owner can easily create, read, update, and delete (CRUD) blog posts.
+## ✨ Key Features
 
-Authorization System: Access rights are differentiated between the blog owner and regular users (guests).
+-   **Elegant Design:** A dark theme with a *deep navy* and *cream white* color palette, and classy typography using Playfair Display and Inter.
+-   **Post Management (CRUD):** The owner can easily create, read, update, and delete (CRUD) blog posts.
+-   **Authorization System:** Access rights are differentiated between the blog owner and regular users (guests).
+    -   **Blog Owner:** Has full access to manage all posts.
+    -   **Registered User:** Can read all posts and leave comments.
+-   **Manual Comment System:** Users can leave comments on each post. Comment owners can edit and delete their own comments.
+-   **Quick Search:** A search function to find posts based on title or content.
+-   **Responsive Design:** Optimized display for desktop, tablet, and mobile devices.
 
-Blog Owner: Has full access to manage all posts.
+## 💻 Tech Stack
 
-Registered User: Can read all posts and leave comments.
+-   **Backend:** PHP, Laravel Framework
+-   **Frontend:** HTML, Tailwind CSS, Alpine.js
+-   **Database:** MySQL (or other Laravel-supported databases)
+-   **Development Tools:** Vite, Composer, NPM
 
-Manual Comment System: Users can leave comments on each post. Comment owners can edit and delete their own comments.
+## 🚀 Installation Guide
 
-Quick Search: A search function to find posts based on title or content.
-
-Responsive Design: Optimized display for desktop, tablet, and mobile devices.
-
-💻 Tech Stack
-Backend: PHP, Laravel Framework
-
-Frontend: HTML, Tailwind CSS, Alpine.js
-
-Database: MySQL (or other Laravel-supported databases)
-
-Development Tools: Vite, Composer, NPM
-
-🚀 Installation Guide
 Follow the steps below to install and run this project in your local environment.
 
-1. Clone the Repository
-git clone https://github.com/YOUR-USERNAME/personalblog.git
-cd personalblog
+### 1. Clone the Repository
 
-2. Install Dependencies
+```bash
+git clone [https://github.com/YOUR-USERNAME/personalblog.git](https://github.com/YOUR-USERNAME/personalblog.git)
+cd personalblog
+```
+
+### 2. Install Dependencies
+
 Install PHP dependencies using Composer and JavaScript dependencies using NPM.
 
+```bash
 composer install
 npm install
 npm run build
+```
 
-3. Environment Configuration
-Copy the .env.example file to create your own .env file.
+### 3. Environment Configuration
 
+Copy the `.env.example` file to create your own `.env` file.
+
+```bash
 cp .env.example .env
+```
 
-Open the .env file and configure your database settings:
+Open the `.env` file and configure your database settings:
 
+```dotenv
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=personalblog
 DB_USERNAME=root
 DB_PASSWORD=
+```
 
-4. Generate App Key & Run Migrations
+### 4. Generate App Key & Run Migrations
+
 Generate a unique application key and run the migrations to create the database tables.
 
+```bash
 php artisan key:generate
 php artisan migrate
+```
 
-5. Run the Development Server
+### 5. Run the Development Server
+
 Finally, run the Laravel development server.
 
+```bash
 php artisan serve
+```
 
-Your application is now accessible at http://127.0.0.1:8000.
+Your application is now accessible at [**http://127.0.0.1:8000**](http://127.0.0.1:8000).
 
-👤 Blog Owner Access
+## 👤 Blog Owner Access
+
 This system has a special role for the blog owner. By default, the user with the following email is designated as the owner:
 
-Email: rafiimanullah@gmail.com
+-   **Email:** `rafiimanullah@gmail.com`
 
-The user with this email will be able to see the "New Post" button, as well as the icons to edit and delete all posts. Other users only have access to read and comment. This logic is controlled in app/Policies/PostPolicy.php.
+The user with this email will be able to see the "New Post" button, as well as the icons to edit and delete all posts. Other users only have access to read and comment. This logic is controlled in `app/Policies/PostPolicy.php`.
 
-Made with ❤️ by Rafi Imanullah
+---
+
+Made with ❤️ by Ravy
