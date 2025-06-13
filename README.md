@@ -21,7 +21,7 @@
 
 -   **Backend:** PHP, Laravel Framework
 -   **Frontend:** HTML, Tailwind CSS, Alpine.js
--   **Database:** MySQL (or other Laravel-supported databases)
+-   **Database:** MySQL
 -   **Development Tools:** Vite, Composer, NPM
 
 ## 🚀 Installation Guide
@@ -31,7 +31,7 @@ Follow the steps below to install and run this project in your local environment
 ### 1. Clone the Repository
 
 ```bash
-git clone [https://github.com/rafizeazy/ravylogue.git]
+git clone https://github.com/rafizeazy/ravylogue.git
 cd personalblog
 ```
 
