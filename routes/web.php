@@ -3,6 +3,7 @@
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PostLikeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PostController::class, 'index']);
@@ -30,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::post('comments', [CommentController::class, 'store'])->name('comments.store');
     Route::put('comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
     Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+    Route::post('posts/{post}/like', [PostLikeController::class, 'store'])->name('posts.like');
 });
 
 

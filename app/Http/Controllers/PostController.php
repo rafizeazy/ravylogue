@@ -6,8 +6,11 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\Comment;
+use App\Models\Like;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -81,6 +84,18 @@ class PostController extends Controller
 
         // Load comment count
         $post->loadCount('comments');
+
+        // Check if the user has liked this post
+        $liked = false;
+        if (Auth::check()) {
+            $liked = $post->likes()->where('user_id', Auth::id())->exists();
+        }
+
+        $post->liked = $liked;
+        $post->like_count = $post->likes()->count();
+        $post->comment_count = $post->comments()->count();
+        $post->view_count = $post->views;
+        $post->is_owner = Auth::check() && Auth::id() === $post->user_id;
 
         return view('posts.show', compact('post'));
     }
@@ -160,5 +175,16 @@ class PostController extends Controller
             ->paginate(6);
 
         return view('posts.index', compact('posts'));
+    }
+
+    public function like(Post $post, Request $request)
+    {
+        $user = $request->user();
+
+        if ($post->likes()->where('user_id', $user->id)->exists()) {
+            $post->likes()->detach($user->id);
+        } else {
+            $post->likes()->attach($user->id);
+        }
     }
 }

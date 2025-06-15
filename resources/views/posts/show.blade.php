@@ -59,10 +59,34 @@
             @endif
         </article>
 
+        <!-- Post Actions: Likes -->
+        <div class="mt-8 pt-8 border-t border-white/10 flex items-center justify-between">
+            <form action="{{ route('posts.like', $post) }}" method="POST">
+                @csrf
+                <button type="submit" class="flex items-center space-x-2 text-cream-white/70 hover:text-white transition-colors group">
+                    @if($post->isLikedByUser())
+                    <!-- Liked State -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-rosewood" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="font-semibold">Disukai</span>
+                    @else
+                    <!-- Unliked State -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:text-rosewood transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                    <span>Suka</span>
+                    @endif
+                </button>
+            </form>
+            <div class="text-sm text-cream-white/60">
+                <span>{{ $post->likes->count() }} Suka</span>
+            </div>
+        </div>
+
         <!-- Manual Comments Section -->
         <div class="mt-16 border-t border-white/10 pt-12">
             <h2 class="text-3xl font-serif font-bold text-cream-white mb-8">Diskusi ({{ $post->comments->count() }})</h2>
-
             @auth
             <div class="bg-white/5 rounded-2xl p-6 mb-8">
                 <form action="{{ route('comments.store') }}" method="POST">
@@ -88,7 +112,6 @@
                     <div class="flex items-start space-x-4">
                         <img class="w-10 h-10 rounded-full" src="https://ui-avatars.com/api/?name={{ urlencode($comment->user->name) }}&color=1E293B&background=B99A6D" alt="{{ $comment->user->name }}">
                         <div class="flex-1">
-                            <!-- Display Comment -->
                             <div x-show="!editing">
                                 <div class="flex items-center justify-between">
                                     <p class="font-semibold text-cream-white">{{ $comment->user->name }}</p>
@@ -96,18 +119,12 @@
                                         <p class="text-xs text-cream-white/50">{{ $comment->created_at->diffForHumans() }}</p>
                                         @canany(['update', 'delete'], $comment)
                                         <div class="relative" x-data="{ dropdownOpen: false }">
-                                            <button @click="dropdownOpen = !dropdownOpen" class="text-cream-white/50 hover:text-white">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <button @click="dropdownOpen = !dropdownOpen" class="text-cream-white/50 hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                                     <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
-                                                </svg>
-                                            </button>
+                                                </svg></button>
                                             <div x-show="dropdownOpen" @click.away="dropdownOpen = false" class="absolute right-0 mt-2 w-32 bg-navy-deep rounded-md shadow-lg ring-1 ring-white/10 z-10" style="display:none;">
-                                                @can('update', $comment)
-                                                <a href="#" @click.prevent="editing = true; dropdownOpen = false" class="block px-4 py-2 text-sm text-cream-white/80 hover:bg-white/5">Edit</a>
-                                                @endcan
-                                                @can('delete', $comment)
-                                                <a href="#" @click.prevent="$dispatch('open-delete-modal', { deleteUrl: '{{ route('comments.destroy', $comment) }}' })" class="block px-4 py-2 text-sm text-rosewood hover:bg-white/5">Hapus</a>
-                                                @endcan
+                                                @can('update', $comment)<a href="#" @click.prevent="editing = true; dropdownOpen = false" class="block px-4 py-2 text-sm text-cream-white/80 hover:bg-white/5">Edit</a>@endcan
+                                                @can('delete', $comment)<a href="#" @click.prevent="$dispatch('open-delete-modal', { deleteUrl: '{{ route('comments.destroy', $comment) }}' })" class="block px-4 py-2 text-sm text-rosewood hover:bg-white/5">Hapus</a>@endcan
                                             </div>
                                         </div>
                                         @endcanany
@@ -115,16 +132,12 @@
                                 </div>
                                 <p class="text-cream-white/80 mt-1">{{ $comment->content }}</p>
                             </div>
-                            <!-- Edit Comment Form -->
                             <div x-show="editing" style="display:none;">
                                 <form action="{{ route('comments.update', $comment) }}" method="POST">
                                     @csrf
                                     @method('PUT')
                                     <textarea name="content" rows="3" class="w-full px-3 py-2 bg-navy-deep border-white/20 rounded-lg focus:ring-muted-gold focus:border-muted-gold text-cream-white" required>{{ $comment->content }}</textarea>
-                                    <div class="mt-2 flex items-center space-x-2">
-                                        <button type="submit" class="text-sm px-3 py-1 bg-muted-gold text-navy-deep rounded-md hover:bg-opacity-80">Simpan</button>
-                                        <button type="button" @click="editing = false" class="text-sm text-cream-white/60">Batal</button>
-                                    </div>
+                                    <div class="mt-2 flex items-center space-x-2"><button type="submit" class="text-sm px-3 py-1 bg-muted-gold text-navy-deep rounded-md hover:bg-opacity-80">Simpan</button><button type="button" @click="editing = false" class="text-sm text-cream-white/60">Batal</button></div>
                                 </form>
                             </div>
                         </div>
